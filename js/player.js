@@ -1,35 +1,37 @@
-const playername = [];
+let selectedPlayerName = [];
 
-function showPlayer() {
+function showPlayer(playerNames) {
+
     const tbody = document.getElementById('player-names');
-    tbody.textContent = " ";
-    for (let i = 0; i < playername.length; i++) {
-        if (i <= 4) {
-            const pName = playername[i];
+    tbody.innerHTML = " ";
+
+    for (let i = 0; i < playerNames.length; i++) {
+            const pName = playerNames[i];
             const tr = document.createElement("tr");
             tr.innerHTML = ` 
                 <th>${i + 1}</th>
-                <td>${pName.playername}</td>
+                <td>${pName}</td>
             `
             tbody.appendChild(tr);
-        } else {
-            return;
-        }
-    };
+    }
 }
 
-function addPlayers(element) {
-    if (playername.length <= 4 ) {
-        const playerName = element.parentNode.children[0].innerText;
-        const name = {
-            playername: playerName,
-        }
-        playername.push(name);
-        element.disabled = 'true';
+function selectPlayerBtn(element){
+
+    const playerName = element.parentNode.children[0].innerText;
+    selectedPlayerName.push(playerName);
+
+    if(selectedPlayerName.length <= 5){
+        document.getElementById('total-player').innerText =  selectedPlayerName.length;
+        showPlayer(selectedPlayerName);
+        element.disabled = true;
         element.style.backgroundColor = 'gray';
-        showPlayer();
+    }else{
+        alert('your are added 5 plyaers');
     }
-    else {
-        alert('You have already selected 5 players');
-    }       
+   
 }
+
+
+
+
